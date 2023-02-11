@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fooddep
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fooddep
+  template:
+    metadata:
+      labels:
+        app: fooddep
+    spec:
+      containers:
+      - image: public.ecr.aws/m3q9r3m4/ofds:latest
+        imagePullPolicy: Always
+        name: ofds
+        ports:
+          - containerPort: 8085

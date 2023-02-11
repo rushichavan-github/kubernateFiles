@@ -1,0 +1,30 @@
+version: '2'
+
+services:
+  app:
+    image: 'foodapp.jar:latest'
+    build:
+      context: .
+    container_name: foodapp
+    restart: always
+    ports:
+      - 8085:8085
+    depends_on:
+      - db    
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://ofdsdatabase.cbuswp39vcjz.us-east-1.rds.amazonaws.com:5432/food
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=admin321
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+          
+  db:
+    image: 'postgres:13.1-alpine'
+    container_name: db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin321
+      - POSTGRES_DB=food
+    expose:
+      - "5432:5432" 
+
+      
